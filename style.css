@@ -1,0 +1,29 @@
+/* * {
+    width: 0;
+    height: 0;
+    box-sizing: border-box;
+
+} */
+#canvas {
+    width: 60%;
+    height: 500px;
+    border:5px solid #d96c6c;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; 
+    width: 100%;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
