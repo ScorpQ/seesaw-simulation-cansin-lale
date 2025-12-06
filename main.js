@@ -10,6 +10,12 @@ let pivot = {
     color: 'blue'
 };
 
+let seeSaw = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    color: 'gray'
+};
+
 function drawPivotPoint() {
     context.fillStyle = pivot.color;
     context.beginPath();
@@ -18,10 +24,19 @@ function drawPivotPoint() {
     context.stroke();
 }
 
+function drawSeesaw() {
+    context.fillStyle = seeSaw.color;
+    context.beginPath();
+    context.fillRect(seeSaw.x-25, seeSaw.y-5, 50, 10);
+    context.fill();
+    context.stroke();
+}
+
 function updateGameArea() {
     clear();
-    pivot.x += 1;
+
     drawPivotPoint();
+    drawSeesaw();
     //console.log("running")
 }
 
@@ -31,6 +46,8 @@ function clear() {
 
 function main() {
     drawPivotPoint();
+    drawSeesaw();
     this.interval = setInterval(updateGameArea, 20);
 }
+main();
 
