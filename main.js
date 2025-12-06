@@ -3,7 +3,8 @@ const context = canvas.getContext('2d');
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
-let rotation = 0
+let rotation = 0;
+let rotateSpeed = 0;
 
 let pivot = {
     x: canvas.width / 2,
@@ -39,7 +40,7 @@ function drawSeesaw() {
 
 function updateGameArea() {
     clear();
-
+    rotating();
     drawSeesaw();
     drawPivotPoint();
     //console.log("running")
@@ -50,7 +51,11 @@ function clear() {
 }
 
 function rotating(){
-    rotation = rotation - 15
+    rotation-=rotateSpeed;
+}
+
+function increaseSpeed(){
+    rotateSpeed+=1;
 }
 
 
@@ -58,7 +63,7 @@ function rotating(){
 function main() {
     drawSeesaw();
     drawPivotPoint();
-    this.interval = setInterval(updateGameArea, 20);
+    this.interval = setInterval(updateGameArea, 10);
 }
 main();
 
