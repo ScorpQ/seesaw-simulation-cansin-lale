@@ -3,6 +3,7 @@ const context = canvas.getContext('2d');
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
+let rotation = 0
 
 let pivot = {
     x: canvas.width / 2,
@@ -30,7 +31,7 @@ function drawSeesaw() {
     context.fillStyle = seeSaw.color;
     context.strokeStyle = '#555';
     context.lineWidth = 2;
-    context.rotate(15 * Math.PI / 180);
+    context.rotate(rotation * Math.PI / 180);
     context.fillRect(-600 / 2, -20 / 2, 600, 20);
     context.strokeRect(-600 / 2, -20 / 2, 600, 20); 
     context.restore(); 
@@ -48,10 +49,16 @@ function clear() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function rotating(){
+    rotation = rotation - 15
+}
+
+
+
 function main() {
     drawSeesaw();
     drawPivotPoint();
-    //this.interval = setInterval(updateGameArea, 20);
+    this.interval = setInterval(updateGameArea, 20);
 }
 main();
 
