@@ -3,6 +3,7 @@ const context = canvas.getContext('2d');
 
 // PHYSICS CONSTANTS
 const GRAVITY_ACCELERATION = 9.81; 
+const PIXEL_TO_METRE = 100; // 100 pixel equal to 1 meter
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
@@ -11,6 +12,19 @@ let rotation = 0;
 
 let boxes = [];
 
+let pivot = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    color: 'blue'
+};
+
+let seeSaw = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    color: 'gray',
+    weight: 10, 
+    length: 600,
+};
 
 
 function calculateTorque(boxes) {
@@ -23,25 +37,21 @@ function calculateTorque(boxes) {
     return T; // returning total torque to calculate angular acceleration
 }
 
-function calculateInertia() {
+function calculateInertia(boxes) {
+    let I = 0;
 
+    boxes.forEach(box => {
+         I += box.weight * Math.pow(box.distance, 2)
+    })
+    I += seeSaw.weight * Math.pow(seeSaw.length / PIXEL_TO_METRE, 2) / 12 // rod about the middle formula 
 
+    return I  // returning total momentium of inertia to calculate angular acceleration
 }
 
 
 
 
-let pivot = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    color: 'blue'
-};
 
-let seeSaw = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    color: 'gray'
-};
 
 function drawPivotPoint() {
     context.fillStyle = pivot.color;
