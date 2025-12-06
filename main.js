@@ -1,10 +1,35 @@
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 
+// PHYSICS CONSTANTS
+const GRAVITY_ACCELERATION = 9.81; 
+
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 let rotation = 0;
-let rotateSpeed = 0;
+
+
+let boxes = [];
+
+
+
+function calculateTorque(boxes) {
+    let T = 0; // Total Torque
+    boxes.forEach(box => {
+        const F =  GRAVITY_ACCELERATION * box.weight  // g X m
+        T += F * (Math.sin(90 - angle) * box.distance)  // force X distance
+    })
+
+    return T; // returning total torque to calculate angular acceleration
+}
+
+function calculateInertia() {
+
+
+}
+
+
+
 
 let pivot = {
     x: canvas.width / 2,
