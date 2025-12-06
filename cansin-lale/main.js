@@ -55,12 +55,12 @@ function calculateTorque(boxes) {
 
 function calculateInertia(boxes) {
     let I = 0;
-
+    
     boxes.forEach(box => {
          I += box.weight * Math.pow(box.distance, 2)
     })
     I += seeSaw.weight * Math.pow(seeSaw.length / PIXEL_TO_METRE, 2) / 12 // rod about the middle formula 
-
+    
     return I  // returning total momentium of inertia to calculate angular acceleration
 }
 
@@ -88,7 +88,7 @@ function drawPivotPoint() {
     context.stroke();
 }
 
-function drawSeesaw() {
+function drawSeesaw() { 
     context.save();  
     context.translate(pivot.x, pivot.y);
     context.fillStyle = seeSaw.color;
