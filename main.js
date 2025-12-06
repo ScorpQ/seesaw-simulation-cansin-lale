@@ -4,13 +4,29 @@ const context = canvas.getContext('2d');
 // PHYSICS CONSTANTS
 const GRAVITY_ACCELERATION = 9.81; 
 const PIXEL_TO_METRE = 100; // 100 pixel equal to 1 meter
+const PİVOT_FRICTION = 1;
+const TIME = 0.016; // !!AI Assit to calculate Angular Velocity!!
 
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
-let rotation = 0;
 
 
-let boxes = [];
+
+
+let angleOfSeesaw = 0;
+let angularAcceleration = 0;
+let angularVelocity = 0; 
+
+let boxes = [
+    {
+        weight: 15,
+        distance: -5,
+    },
+    {
+        weight: 15,
+        distance: 5.1,
+    }
+];
 
 let pivot = {
     x: canvas.width / 2,
@@ -23,7 +39,7 @@ let seeSaw = {
     y: canvas.height / 2,
     color: 'gray',
     weight: 10, 
-    length: 600,
+    length: 600
 };
 
 
@@ -31,7 +47,7 @@ function calculateTorque(boxes) {
     let T = 0; // Total Torque
     boxes.forEach(box => {
         const F =  GRAVITY_ACCELERATION * box.weight  // g X m
-        T += F * (Math.sin(90 - angle) * box.distance)  // force X distance
+        T += F * (Math.sin(90 - angleOfSeesaw) * box.distance)  // force X distance
     })
 
     return T; // returning total torque to calculate angular acceleration
@@ -46,6 +62,17 @@ function calculateInertia(boxes) {
     I += seeSaw.weight * Math.pow(seeSaw.length / PIXEL_TO_METRE, 2) / 12 // rod about the middle formula 
 
     return I  // returning total momentium of inertia to calculate angular acceleration
+}
+
+function updateCalculations() {
+    const totalTorque = calculateTorque(boxes); 
+    const momentOfInertia = calculateInertia(boxes);
+
+    angularAcceleration =  totalTorque / momentOfInertia;
+    angularVelocity += angularAcceleration * TIME;
+    angularVelocity *= PİVOT_FRICTION;
+    angleOfSeesaw += angularVelocity * TIME;
+
 }
 
 
@@ -67,7 +94,7 @@ function drawSeesaw() {
     context.fillStyle = seeSaw.color;
     context.strokeStyle = '#555';
     context.lineWidth = 2;
-    context.rotate(rotation * Math.PI / 180);
+    context.rotate(angleOfSeesaw);
     context.fillRect(-600 / 2, -20 / 2, 600, 20);
     context.strokeRect(-600 / 2, -20 / 2, 600, 20); 
     context.restore(); 
@@ -75,30 +102,21 @@ function drawSeesaw() {
 
 function updateGameArea() {
     clear();
-    rotating();
+    updateCalculations();
     drawSeesaw();
     drawPivotPoint();
-    //console.log("running")
 }
 
 function clear() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function rotating(){
-    rotation-=rotateSpeed;
-}
-
-function increaseSpeed(){
-    rotateSpeed+=1;
-}
-
 
 
 function main() {
-    drawSeesaw();
-    drawPivotPoint();
-    this.interval = setInterval(updateGameArea, 10);
+    updateGameArea();
+    requestAnimationFrame(main); 
 }
+
 main();
 
