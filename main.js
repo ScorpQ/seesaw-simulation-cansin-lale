@@ -34,4 +34,3 @@ function main() {
     this.interval = setInterval(updateGameArea, 20);
 }
 
-main()
