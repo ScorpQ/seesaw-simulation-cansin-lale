@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seesaw Simulation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Seesaw Simulation</h1>
+        <div class="params-container" id="params-container">
+            <div class="params-box">
+                <div class="params-label">LEFT SIDE</div>
+                <div class="params-value" id="leftWeight">0.0 kg</div>
+            </div>
+            <div class="params-box">
+                <div class="params-label">NEXT ONE</div>
+                <div class="params-value" id="nextWeight">VALUE2</div>
+            </div>
+            <div class="params-box">
+                <div class="params-label">RIGHT SIDE</div>
+                <div class="params-value" id="rightWeight">0.0 kg</div>
+            </div>
+            <div class="params-box">
+                <div class="params-label">ANGLE</div>
+                <div class="params-value" id="tiltAngle">0.0°</div>
+            </div>
+        </div>
+        <canvas id="canvas" class="canvas-container">
+        </canvas>
+        <div class="logs" id="logs"></div>
+    </div>
+</body>
+</html>
