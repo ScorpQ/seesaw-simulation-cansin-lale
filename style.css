@@ -1,0 +1,28 @@
+body {
+    background-color: #5a6c7d;
+}
+
+.main-header {
+    margin: 20px 0;
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+    color: #2b1339;
+    font-family: Impact, 'Arial Black';
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sub-container {
+    width: fit-content;
+}
+
+.params-container{
+    display: flex;
+    gap: 5rem;
+}
