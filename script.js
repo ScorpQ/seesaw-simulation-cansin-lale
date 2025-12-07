@@ -19,7 +19,6 @@ const COLOR_PALETTE = [
     "#6a7b8c", 
     "#7c8d9f"
 ];
-
 class Utils {
     getRandomColor() {
         return COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)];
@@ -29,9 +28,7 @@ class Utils {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
-
 class AboutPhysics {
-
     newAngleOfSeesaw = 0;
     
     calculateAngle() {
@@ -74,16 +71,51 @@ class AboutPhysics {
     }
 }
 
+class AboutSeesaw {
 
+    isClickOnSeesawArea(clickX, clickY) {
+        const wrapperRect = seeSawArea.getBoundingClientRect();
+        const pivotX = wrapperRect.width / 2;
+        const pivotY = wrapperRect.height / 2;
+        
+        const dx = clickX - pivotX;
+        const dy = clickY - pivotY;
+        
+        const cosAngle = Math.cos(-angleOfSeesaw);
+        const sinAngle = Math.sin(-angleOfSeesaw);
+        const rotatedX = dx * cosAngle - dy * sinAngle;
+        
+        const halfLength = seeSaw.length / 2;
+        
+        return Math.abs(rotatedX) <= halfLength;
+    }
 
+    createBox(startX, weight, targetDistance) {
+        const box = document.createElement('div');
+        const size = (weight + 8) * 5;
 
-
-
-
-
-
-function main() {
-    requestAnimationFrame(main);
+        box.style.top = '20px';
+        box.className = 'falling-box';
+        box.style.width = `${size}px`;
+        box.style.height = `${size}px`;
+        box.style.left = `${startX}px`;
+        box.innerHTML = `<span>${weight}kg</span>`;
+        box.style.backgroundColor = UTILS.getRandomColor();
+        
+        seeSawArea.appendChild(box);
+        
+        return {
+            element: box,
+            currentY: 20,
+            fallSpeed: 10,
+            startX: startX,
+            weight: weight,
+            targetDistance: targetDistance,
+            landed: false
+        };
+}
 }
 
-main();
+const UTILS = new Utils();
+const SEESAW = new AboutSeesaw();
+const PHYSICS = new AboutPhysics();
