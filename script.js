@@ -1,0 +1,1 @@
+document.getElementById('leftWeight').innerHTML = "Testing the pure js"
