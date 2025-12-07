@@ -31,6 +31,8 @@ class Utils {
 }
 
 class AboutPhysics {
+
+    newAngleOfSeesaw = 0;
     
     calculateAngle() {
         let netTorque = 0;
@@ -43,6 +45,33 @@ class AboutPhysics {
         
         return (angleDegrees * Math.PI / 180);
     }
+
+    updateCalculations() {
+       this.newAngleOfSeesaw = this.calculateAngle();
+        
+        // !!!!!! //
+        const smoothingFactor = 0.015;
+        angleOfSeesaw += (this.newAngleOfSeesaw - angleOfSeesaw) * smoothingFactor;
+        const angleDegrees = angleOfSeesaw * 180 / Math.PI;
+
+        
+        // Calculating updated torque values
+        let leftWeight = 0;
+        let rightWeight = 0;
+
+        boxes.forEach((box) => {
+            if (box.distance < 0) {
+                leftWeight += box.weight;
+            } else if (box.distance > 0) {
+                rightWeight += box.weight;
+            }
+        });
+        
+        seesawBar.style.transform = `translate(-50%, -50%) rotate(${angleDegrees}deg)`;
+        document.getElementById('tiltAngle').textContent = `${angleDegrees.toFixed(1)}°`;
+        document.getElementById('leftWeight').textContent = `${leftWeight.toFixed(1)} kg`;
+        document.getElementById('rightWeight').textContent = `${rightWeight.toFixed(1)} kg`;
+    }
 }
 
 
@@ -54,7 +83,6 @@ class AboutPhysics {
 
 
 function main() {
-    updateCalculations();
     requestAnimationFrame(main);
 }
 
