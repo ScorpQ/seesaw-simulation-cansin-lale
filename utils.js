@@ -15,7 +15,7 @@ function getSeesawDimensions(seesawBar) {
 }
 
 function scaleTheSize(weight) {
-    return (weight + 8) * 5;
+    return (weight + 8) * 3.5;
 }
 
 function clearTheSeesaw() {
@@ -30,4 +30,12 @@ function clearTheSeesaw() {
     document.getElementById('leftWeight').textContent = '0.0 kg';
     document.getElementById('rightWeight').textContent = '0.0 kg';
     seesawBar.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+}
+
+function createLog(weight, distance) {
+    const logDiv = document.querySelector('.logs');
+    const logText = document.createElement('P');
+    logText.innerHTML = `⚖️ ${weight}kg dropped on right side at ${distance} from pivot`;
+    logText.className = "log-text"
+    logDiv.appendChild(logText);
 }

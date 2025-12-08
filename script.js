@@ -165,6 +165,7 @@ seeSawArea.addEventListener('click', (event) => {
     if (clickInfo.isOnSeesaw) {
         const fallingBox = createBox(clickX, nextWeight, clickInfo.distance);
         fallingBoxes.push(fallingBox);
+        createLog(nextWeight, clickInfo.distance);
         
         nextWeight = getRandomWeight(1, 10);
         document.getElementById('nextWeight').textContent = `${nextWeight} kg`;
