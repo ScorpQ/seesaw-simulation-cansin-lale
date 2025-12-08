@@ -135,7 +135,6 @@ class Utils {
  
  // !!!!!!! //
  function updateFallingBoxes() {
-    let seeSaw = Utils.getSeesawDimensions();
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
     const pivotY = rect.height / 2;
@@ -147,13 +146,7 @@ class Utils {
         
         box.currentY += box.fallSpeed;
         
-        const dx = box.location - pivotX;
-        const dy = box.currentY - pivotY;
-
-        const cosAngle = Math.cos(-angleOfSeesaw);
-        const sinAngle = Math.sin(-angleOfSeesaw);
-        const distance = dx * cosAngle - dy * sinAngle;
-        
+        const distance = box.location - pivotX;
         const seesawTopY = pivotY + Math.sin(angleOfSeesaw) * distance;
         const boxSize = (box.weight + 8) * 5;
         const boxRadius = boxSize / 2;
@@ -164,7 +157,7 @@ class Utils {
             
             boxes.push({
                 weight: box.weight,
-                distance: distance, 
+                distance: distance,
                 color: box.element.style.backgroundColor,
                 element: box.element
             });
