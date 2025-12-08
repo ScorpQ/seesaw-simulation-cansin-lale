@@ -1,9 +1,10 @@
 body {
+    font-family: Tahoma;
     background-color: #5a6c7d;
 }
 
 .main-header {
-    margin: 20px 0 40px 0;
+    margin: 5px 0 20px 0;
     font-size: 3rem;
     font-weight: 900;
     text-align: center;
@@ -58,7 +59,7 @@ body {
 .seesaw-sim-wrapper{
     width: 98%;
     height: 450px;
-    margin-top:  50px;
+    margin-top:  20px;
     cursor: crosshair;
     position: relative;
     border-radius: 10px;
@@ -113,7 +114,82 @@ body {
 .falling-box.landed {
     z-index: 3;
 }
- 
+
+.control-panel {
+    display: flex;
+    gap: 2rem;
+    padding: 20px;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto 0 auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.common-button {
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(107, 87, 120, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.common-button:hover {
+    background-color: rgba(107, 87, 120, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.common-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.checkbox-container input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+}
+
+.checkmark {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.checkmark:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: rgba(107, 87, 120, 0.85);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+
 
 @media (max-width: 768px) {
     .params-container{
