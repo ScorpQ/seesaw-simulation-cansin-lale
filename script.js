@@ -6,6 +6,10 @@ const SMOOTHING_FACTOR = 0.015;
 const seesawBar = document.getElementById('seesawBar');
 const seeSawArea = document.querySelector('.seesaw-sim-wrapper');
 
+// Seesaw dimensions and initial weight
+let seeSaw = getSeesawDimensions(seesawBar);
+let nextWeight = getRandomWeight(1, 10);
+
 // Color palette for objects that created when clıck to seesaw
 const COLOR_PALETTE = [
     "#7b68a6", 
@@ -24,24 +28,6 @@ const COLOR_PALETTE = [
 let boxes = [];
 let angleOfSeesaw = 0;
 let fallingBoxes = [];
-class Utils {
-    static getRandomColor() {
-        return COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)];
-    }
-    
-    static getRandomWeight(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    static getSeesawDimensions = () => {
-        const computedStyle = window.getComputedStyle(seesawBar);
-        return {
-            length: parseFloat(computedStyle.width),
-            height: parseFloat(computedStyle.height)
-        };
-    };
-}
-
 
 
  function calculateAngle() {
@@ -74,7 +60,7 @@ class Utils {
     document.getElementById('rightWeight').textContent = `${rightWeight.toFixed(1)} kg`;
  }
 
- // !!!!! //
+ // codepen research //
  function updateBoxPositions() {
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
@@ -83,7 +69,7 @@ class Utils {
     const sin = Math.sin(angleOfSeesaw);
     
     boxes.forEach(box => {
-        const boxHeightOffset = -seeSaw.height / 2 - (box.weight + 8) * 5 / 2;
+        const boxHeightOffset = -seeSaw.height / 2 - scaleTheSize(box.weight) / 2;
         
         const x = box.distance * cos - boxHeightOffset * sin;
         const y = box.distance * sin + boxHeightOffset * cos;
@@ -109,7 +95,7 @@ class Utils {
 
  function createBox(location, weight, targetDistance) {
     const box = document.createElement('div');
-    const size = (weight + 8) * 5;
+    const size = scaleTheSize(weight);
 
     box.style.top = '20px';
     box.className = 'falling-box';
@@ -118,7 +104,7 @@ class Utils {
     box.style.left = `${location}px`;
     box.style.transform = 'translate(-50%, -50%)';
     box.innerHTML = `<span>${weight}kg</span>`;
-    box.style.backgroundColor = Utils.getRandomColor();
+    box.style.backgroundColor = getRandomColor(COLOR_PALETTE);
     
     seeSawArea.appendChild(box);
     
@@ -133,7 +119,7 @@ class Utils {
     };
  }
  
- // !!!!!!! //
+ // codepen research //
  function updateFallingBoxes() {
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
@@ -148,7 +134,7 @@ class Utils {
         
         const distance = box.location - pivotX;
         const seesawTopY = pivotY + Math.sin(angleOfSeesaw) * distance;
-        const boxSize = (box.weight + 8) * 5;
+        const boxSize = scaleTheSize(box.weight);
         const boxRadius = boxSize / 2;
         
         if (box.currentY + boxRadius >= seesawTopY - seeSaw.height / 2) {
@@ -170,8 +156,6 @@ class Utils {
     }
  }
 
-
-
 seeSawArea.addEventListener('click', (event) => {
     const rect = seeSawArea.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
@@ -182,12 +166,10 @@ seeSawArea.addEventListener('click', (event) => {
         const fallingBox = createBox(clickX, nextWeight, clickInfo.distance);
         fallingBoxes.push(fallingBox);
         
-        nextWeight = Utils.getRandomWeight(1, 10);
+        nextWeight = getRandomWeight(1, 10);
         document.getElementById('nextWeight').textContent = `${nextWeight} kg`;
     }
 });
-
-
 
 function main() {
     updateFallingBoxes();   
@@ -196,7 +178,5 @@ function main() {
     requestAnimationFrame(main);
 }
 
-let seeSaw = Utils.getSeesawDimensions();
-let nextWeight = Utils.getRandomWeight(1, 10);
 document.getElementById('nextWeight').textContent = `${nextWeight} kg`;
 main();
