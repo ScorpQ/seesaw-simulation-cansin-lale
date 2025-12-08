@@ -23,7 +23,7 @@ function clearTheSeesaw() {
     fallingBoxes = [];
     angleOfSeesaw = 0;
 
-    const elements = document.querySelectorAll('.falling-box.landed');
+    const elements = document.querySelectorAll('.falling-box.landed, .log-text');
     elements.forEach(el => el.remove());
     
     document.getElementById('tiltAngle').textContent = '0.0°';
@@ -36,6 +36,6 @@ function createLog(weight, distance) {
     const logDiv = document.querySelector('.logs');
     const logText = document.createElement('P');
     logText.innerHTML = `⚖️ ${weight}kg dropped on right side at ${distance} from pivot`;
-    logText.className = "log-text"
+    logText.className = 'log-text';
     logDiv.appendChild(logText);
 }

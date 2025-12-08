@@ -12,16 +12,16 @@ let nextWeight = getRandomWeight(1, 10);
 
 // Color palette for objects that created when clıck to seesaw
 const COLOR_PALETTE = [
-    "#7b68a6", 
-    "#9d87b8", 
-    "#6b7aa1", 
-    "#8b9dc3", 
-    "#5a7d9a",
-    "#7a8fa3", 
-    "#6d8299", 
-    "#8494a8", 
-    "#6a7b8c", 
-    "#7c8d9f"
+    '#7b68a6', 
+    '#9d87b8', 
+    '#6b7aa1', 
+    '#8b9dc3', 
+    '#5a7d9a',
+    '#7a8fa3', 
+    '#6d8299', 
+    '#8494a8', 
+    '#6a7b8c', 
+    '#7c8d9f'
 ];
 
 // Global State
@@ -30,16 +30,16 @@ let angleOfSeesaw = 0;
 let fallingBoxes = [];
 
 
- function calculateAngle() {
+function calculateAngle() {
     let netTorque = 0;
     boxes.forEach((box) => {
         netTorque += (box.weight * box.distance);
-    })
+    });
     const angleDegrees = Math.max(-MAX_ANGLE_DEGREES, Math.min(MAX_ANGLE_DEGREES, netTorque / 10));
     return (angleDegrees * Math.PI / 180);
- }
+}
 
- function updateCalculations() {
+function updateCalculations() {
     angleOfSeesaw += (calculateAngle() - angleOfSeesaw) * SMOOTHING_FACTOR;
     const angleDegrees = angleOfSeesaw * 180 / Math.PI;
 
@@ -58,10 +58,10 @@ let fallingBoxes = [];
     document.getElementById('tiltAngle').textContent = `${angleDegrees.toFixed(1)}°`;
     document.getElementById('leftWeight').textContent = `${leftWeight.toFixed(1)} kg`;
     document.getElementById('rightWeight').textContent = `${rightWeight.toFixed(1)} kg`;
- }
+}
 
- // codepen research //
- function updateBoxPositions() {
+// codepen research //
+function updateBoxPositions() {
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
     const pivotY = rect.height / 2;
@@ -78,9 +78,9 @@ let fallingBoxes = [];
         box.element.style.top = `${pivotY + y}px`;
         box.element.style.transform = `translate(-50%, -50%) rotate(${angleOfSeesaw * 180 / Math.PI}deg)`;
     });
- }
+}
 
- function getClickInfo(clickX) {
+function getClickInfo(clickX) {
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
     const distance = clickX - pivotX;
@@ -91,9 +91,9 @@ let fallingBoxes = [];
         isOnSeesaw,
         distance
     };
- }
+}
 
- function createBox(location, weight, targetDistance) {
+function createBox(location, weight, targetDistance) {
     const box = document.createElement('div');
     const size = scaleTheSize(weight);
 
@@ -117,10 +117,10 @@ let fallingBoxes = [];
         location: location,
         targetDistance: targetDistance,
     };
- }
+}
  
- // codepen research //
- function updateFallingBoxes() {
+// codepen research //
+function updateFallingBoxes() {
     const rect = seeSawArea.getBoundingClientRect();
     const pivotX = rect.width / 2;
     const pivotY = rect.height / 2;
@@ -154,7 +154,7 @@ let fallingBoxes = [];
             box.element.style.top = `${box.currentY}px`;
         }
     }
- }
+}
 
 seeSawArea.addEventListener('click', (event) => {
     const rect = seeSawArea.getBoundingClientRect();
